@@ -2,13 +2,13 @@ import serial
 import time
 
 from .speech import speak
-from .settings import DOORLOCK_PORT
+from settings import settings
 
 
 arduino = None
 
 try:
-    arduino = serial.Serial(port=DOORLOCK_PORT, baudrate=115200, timeout=.1)
+    arduino = serial.Serial(port=settings.DOORLOCK_PORT, baudrate=115200, timeout=.1)
 except:
     pass
 
@@ -29,4 +29,3 @@ def open_door(flag: str):
         except:
             print("Door System not connected")
         speak("Opening the door.")
-

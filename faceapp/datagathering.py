@@ -1,6 +1,6 @@
 import cv2
 from fsdb.fsdb import Data, get_by_name
-from .settings import CAM_PORT
+from settings import settings
 import numpy as np
 from faceapp.imagelables import imgsandlables
 
@@ -23,7 +23,7 @@ def train():
 
 def register(name: str):
     
-    cam= cv2.VideoCapture(CAM_PORT, cv2.CAP_DSHOW)
+    cam= cv2.VideoCapture(settings.CAM_PORT, cv2.CAP_DSHOW)
     
     new = Data(name)
     new.save()

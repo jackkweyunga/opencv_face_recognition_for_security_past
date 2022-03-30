@@ -58,15 +58,6 @@
 {% endblock %}
 
 
-{% block scripts %}
-<script>
-
-    dbtn = document.getElementById("detbtn");
-    rbtn = document.getElementById("regbtn");
-
-</script>
-{% endblock %}
-
 
 {% block content %}
 
@@ -122,8 +113,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col img-frame">
-                        <img src="{{ url_for('video_feed') }}" width="100%">
+                    <div class="col img-frame" id="r_vid">
+                        <a class="btn btn-sm w-100" href="{{ url_for('reg_video_feed') }}">START FACE REGISTRATION</a>
                     </div>
                 </div>
             </div>
@@ -148,8 +139,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col img-frame">
-                        <img src="{{ url_for('video_feed') }}" width="100%">
+                    <div class="col img-frame" id="d_vid">
+                        <a class="btn btn-sm w-100" href="{{ url_for('det_video_feed') }}" >START DETECTION</a>
                     </div>
                 </div>
             </div>
@@ -227,4 +218,16 @@
 
 
 
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script>
+
+    var dbtn = document.getElementById("detbtn");
+    var rbtn = document.getElementById("regbtn");
+
+
+</script>
 {% endblock %}

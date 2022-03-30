@@ -32,9 +32,8 @@ if args.test_sms:
 
 if args.gui:
     from webapp import app
-    print("Starting server ..")
     if __name__ == "__main__":
-        app.run(debug=True)
+        app.run()
 
 
 if args.register:

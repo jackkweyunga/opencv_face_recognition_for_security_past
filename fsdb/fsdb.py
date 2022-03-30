@@ -1,7 +1,6 @@
 
 
 import json
-from faceapp.settings import BASE_DIR
 
 def fsdb_logger(level, msg):
     # logging function
@@ -10,7 +9,7 @@ def fsdb_logger(level, msg):
 
 def create_db():
     # creating the databse
-    with open(BASE_DIR / "db.json","w") as db:
+    with open("db.json","w") as db:
         db.close()
         
     # initializing the database
@@ -25,7 +24,7 @@ def read_data() -> list:
     data = []
     
     try:
-        with open(BASE_DIR / "db.json", "r") as db:
+        with open("db.json", "r") as db:
             data = json.load(db)
             # print("data --> ", data)
             db.close()    

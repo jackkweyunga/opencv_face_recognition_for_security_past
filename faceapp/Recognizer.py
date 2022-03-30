@@ -7,7 +7,7 @@ import cv2
 import time
 
 from fsdb.fsdb import get_by_id, get_by_name
-from .settings import CAM_PORT, NUMBER_OF_RECORDS
+from settings import settings
 
 path = 'data'
 recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -19,7 +19,7 @@ def recognize() -> str:
     # load classifier
     recognizer.read('recognizer.yml')
     
-    cam= cv2.VideoCapture(CAM_PORT, cv2.CAP_DSHOW)
+    cam= cv2.VideoCapture(settings.CAM_PORT, cv2.CAP_DSHOW)
     
     possible_faces = []
     
@@ -42,7 +42,7 @@ def recognize() -> str:
             # Check if confidence is less them 100 ==> "0" is perfect match
             if (confidence >= 50):
                 
-                if len(possible_faces) < NUMBER_OF_RECORDS:
+                if len(possible_faces) < settings.NUMBER_OF_RECORDS:
                     possible_faces.append(id)
                 
                 else:
