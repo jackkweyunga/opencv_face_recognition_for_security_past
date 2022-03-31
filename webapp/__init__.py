@@ -1,4 +1,5 @@
 
+from time import time
 from flask import Flask, render_template, Response, request, redirect, url_for
 from webapp.gen_frames import gen_registration_frames, gen_detection_frames
 from webapp.memberslist import get_members
@@ -79,7 +80,8 @@ def reg_video_feed():
         print(name)
         gen_registration_frames(name)
         cv2.destroyAllWindows()
-        
+        # time.sleep(2)
+        context["members"] = get_members()
         context["messages"] = [{
             "level":"info",
             "message":f"User {name} registered successfully"
@@ -116,12 +118,9 @@ def det_video_feed():
         from settings import settings
         face, p = gen_detection_frames()
         
-        if p != None:
-            p = int([*p.values()][0])
-            
         if face is None:
             if p != None:
-                if  p < 30:
+                if  p < 50:
                     msg = "Intruder at the door."
                     num = settings.PHONE_NUMBERS
                     send_sms(num, msg)
@@ -157,6 +156,3 @@ def det_video_feed():
         
         return render_template('index.html', **context)
         
-
-
-

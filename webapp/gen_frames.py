@@ -97,19 +97,30 @@ def gen_detection_frames():
             print(id, confidence)
 
             # Check if confidence is less them 100 ==> "0" is perfect match
-            if (confidence >= 50):
+            if (confidence >= 10):
                 
                 if len(possible_faces) < int(settings.NUMBER_OF_RECORDS):
-                    possible_faces.append(id)
+                    possible_faces.append({
+                        "id":id,
+                        "confidence":confidence
+                    })
                 
                 else:
                     # print(possible_faces)
+                    ids = [i["id"] for i in possible_faces]
                     p = {}
                     for i in possible_faces:
-                        if i not in [k for k in p.keys()]:
-                            p[i] = possible_faces.count(i)
+                        if i["id"] not in [k for k in p.keys()]:
+                            p[i["id"]] = ids.count(i["id"])
                     
                     id = max(p)
+                    
+                    # calculating average confidence
+                    confid = max([p for p in [po["confidence"] for po in possible_faces if po["id"] == id]])
+                    
+                    print(confid)
+                    print(p)
+                    print(id)
                     
                     data = get_by_id(id)
                     
@@ -123,7 +134,7 @@ def gen_detection_frames():
                     time.sleep(2)
                     cv2.destroyAllWindows()
                     
-                    return data.name, p
+                    return data.name, confid
             
             else:
                 winsound.Beep(900, 500)
