@@ -6,6 +6,7 @@ import os
 from faceapp.datagathering import register
 from faceapp.sms import send_sms
 import settings
+import cv2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -16,9 +17,17 @@ app.config['DEBUG'] = True
 def index():
     from settings import settings
     
-    members = get_members()
+    context = {
+        "members" : get_members(),
+        "settings": settings,
+        "messages": [{
+            "level":"info",
+            "message": "Face Detection Program"
+        }]
+    }
     
-    return render_template('index.html', members = members, settings = settings)
+    
+    return render_template('index.html', **context)
 
 @app.route('/settings', methods=["POST"])
 def settings():
@@ -34,7 +43,9 @@ def settings():
 @app.route('/reg_video_feed', methods=["POST"])
 def reg_video_feed():
     name = f"{request.form['first_name']} {request.form['last_name']}"
+    print(name)
     gen_registration_frames(name)
+    cv2.destroyAllWindows()
     return {}
 
 
@@ -60,6 +71,7 @@ def det_video_feed():
         return {"message":"no face detected"}
     
     print(face, p)
+    cv2.destroyAllWindows()
     
     return {"message":face}
 

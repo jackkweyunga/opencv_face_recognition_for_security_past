@@ -25,6 +25,7 @@ def train():
 
 def gen_registration_frames(name: str):  
     from settings import settings
+    print(settings.CAM_PORT)
     cam= cv2.VideoCapture(int(settings.CAM_PORT), cv2.CAP_DSHOW)
     
     WindowName="Face app"
@@ -35,35 +36,34 @@ def gen_registration_frames(name: str):
     if name != "" or name != None:
         new = Data(name)
         new.save()
-        id = get_by_name(new.name).id
+        _id = get_by_name(new.name).id
         
-    else:
-        id = None
-    
-    count = 0
-    while(True):
-        _, img= cam.read()
-        img= cv2.flip(img, 1) # Flip camera vertically
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        
-        faces = detector.detectMultiScale(gray,1.6,5 )
-        
-        for (x,y,w,h) in faces:
-            cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-            count += 1
-            if id != None:
-                cv2.imwrite(f"data/{id}.{str(count)}.jpg", gray[y:y+h,x:x+w])
+        count = 0
+        while(True):
+            _, img= cam.read()
+            img= cv2.flip(img, 1) # Flip camera vertically
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            
+            faces = detector.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, )
+            
+            for (x,y,w,h) in faces:
+                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                count += 1
+                cv2.imwrite(f"data/{_id}.{count}.jpg", gray[y:y+h,x:x+w])
 
-        cv2.imshow(WindowName, img)
-        k = cv2.waitKey(100) &  0xFF == ord('s')
-        if k == 10:
-            break
-        elif count >= int(settings.NUMBER_OF_RECORDS):
-            print("Started training data")
-            if id != None:
+            cv2.imshow(WindowName, img)
+            k = cv2.waitKey(100) &  0xFF == ord('s')
+            if k == 10:
+                break
+            elif count >= int(settings.NUMBER_OF_RECORDS):
+                print("Started training data")
+                
                 train()
-            cv2.destroyAllWindows()
-            break
+                cv2.destroyAllWindows()
+                break
+        else:
+            print("No name provided")
+            return None
 
             
             
@@ -88,8 +88,6 @@ def gen_detection_frames():
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         faces = detector.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, )
-        
-
         
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
