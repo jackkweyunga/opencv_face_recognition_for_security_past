@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 from webapp.gen_frames import gen_registration_frames, gen_detection_frames
 from webapp.memberslist import get_members
 import os
@@ -7,16 +7,21 @@ from faceapp.datagathering import register
 from faceapp.sms import send_sms
 
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
+    from settings import settings, Settings
+    
+    settings = settings
+    if request.method == "POST":
+        settings = Settings(**request.form)
+        settings.save()
     
     members = get_members()
-    from settings import settings
-    print(settings)
     
     return render_template('index.html', members = members, settings = settings)
 

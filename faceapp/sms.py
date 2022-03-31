@@ -16,7 +16,7 @@ def send_sms(to: str, msg: str):
                         .create(
                             body=msg,
                             from_='+12182858596',
-                            to=t
+                            to=t.strip()
                         )
             print(f"Sending sms to "+t)
     except:
