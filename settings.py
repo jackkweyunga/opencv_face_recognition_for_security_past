@@ -22,13 +22,15 @@ class Settings:
         NUMBER_OF_RECORDS = 20,
         DOORLOCK_PORT = "COM15",
         TWILIO_ACCOUNT_SID = "AC7580b24a06fffa8ca4d762c5c9053901",
-        TWILIO_AUTH_TOKEN = "86dd6314aa511821ebaf83227dcad537"
+        TWILIO_AUTH_TOKEN = "86dd6314aa511821ebaf83227dcad537",
+        PHONE_NUMBERS = "+255712111936"
         ):
         self.CAM_PORT = CAM_PORT
         self.NUMBER_OF_RECORDS = NUMBER_OF_RECORDS
         self.DOORLOCK_PORT = DOORLOCK_PORT
         self.TWILIO_ACCOUNT_SID = TWILIO_ACCOUNT_SID
         self.TWILIO_AUTH_TOKEN = TWILIO_AUTH_TOKEN
+        self.PHONE_NUMBERS = PHONE_NUMBERS
         
     def save(self):        
         with open("settings.json", "w") as s:

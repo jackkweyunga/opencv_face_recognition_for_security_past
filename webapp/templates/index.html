@@ -205,12 +205,15 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <form action="">
-                            CAM_PORT: <input class="form-control" type="text" name="" value="{{settings.CAM_PORT}}" id=""> <br>
-                            NUMBER_OF_RECORDS: <input class="form-control" type="text" name="" value="{{settings.NUMBER_OF_RECORDS}}" id=""> <br>
-                            DOORLOCK_PORT: <input class="form-control" type="text" name="" value="{{settings.DOORLOCK_PORT}}" id=""> <br>
-                            TWILIO_ACCOUNT_SID: <input class="form-control" type="text" name="" value="{{settings.TWILIO_ACCOUNT_SID}}" id=""> <br>
-                            TWILIO_AUTH_TOKEN: <input class="form-control" type="text" name="" value="{{settings.TWILIO_AUTH_TOKEN}}" id=""> <br>
+                        <form action="/" method="post" >
+                            CAM_PORT: <input class="form-control" type="text" name="CAM_PORT" value="{{settings.CAM_PORT}}" id=""> <br>
+                            NUMBER_OF_RECORDS: <input class="form-control" type="text" name="NUMBER_OF_RECORDS" value="{{settings.NUMBER_OF_RECORDS}}" id=""> <br>
+                            DOORLOCK_PORT: <input class="form-control" type="text" name="DOORLOCK_PORT" value="{{settings.DOORLOCK_PORT}}" id=""> <br>
+                            TWILIO_ACCOUNT_SID: <input class="form-control" type="text" name="TWILIO_ACCOUNT_SID" value="{{settings.TWILIO_ACCOUNT_SID}}" id=""> <br>
+                            TWILIO_AUTH_TOKEN: <input class="form-control" type="text" name="TWILIO_AUTH_TOKEN" value="{{settings.TWILIO_AUTH_TOKEN}}" id=""> <br>
+                            PHONE_NUMBERS: <input class="form-control" type="text" name="PHONE_NUMBERS" value="{{settings.PHONE_NUMBERS}}" id=""> <br>
+                            <hr>
+                            <button type="submit" class="btn bg-future">SAVE</button>
                         </form>
                     </div>
                 </div>
