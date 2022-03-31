@@ -29,6 +29,11 @@ def index():
     
     return render_template('index.html', **context)
 
+@app.route('/clear_data')
+def clear_data():
+    
+    return redirect(url_for('index'))
+
 @app.route('/settings', methods=["POST"])
 def settings():
     from settings import Settings

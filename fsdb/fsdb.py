@@ -1,6 +1,7 @@
 
 
 import json
+from msilib.schema import Error
 
 def fsdb_logger(level, msg):
     # logging function
@@ -13,7 +14,7 @@ def create_db():
         db.close()
         
     # initializing the database
-    with open(BASE_DIR / "db.json","r+") as db:
+    with open("db.json","r+") as db:
         # check if the db is empty
         if db.read() == "":
             json.dump([], db)
@@ -28,8 +29,8 @@ def read_data() -> list:
             data = json.load(db)
             # print("data --> ", data)
             db.close()    
-    except FileNotFoundError as e:
-        fsdb_logger(f"{e}", "Database not created")
+    except:
+        fsdb_logger(f"Error", "Database not created")
         fsdb_logger(f"Info", "Creating database")
         create_db()
         
