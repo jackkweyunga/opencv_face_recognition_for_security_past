@@ -32,6 +32,7 @@ def read_data() -> list:
         fsdb_logger(f"{e}", "Database not created")
         fsdb_logger(f"Info", "Creating database")
         create_db()
+        
     return data 
        
 
@@ -64,7 +65,7 @@ def enter_data(name: str):
         return None
     
     
-    with open(BASE_DIR / "db.json", "w") as db:
+    with open("db.json", "w") as db:
         entry["id"] = ind + 1
         current.append(entry)
         json.dump(current, db)
