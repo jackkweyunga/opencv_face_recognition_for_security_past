@@ -31,6 +31,23 @@ def index():
 
 @app.route('/clear_data')
 def clear_data():
+    import os, shutil
+    try:
+        shutil.rmtree('data/')
+    except:
+        pass
+    
+    try:
+        os.mkdir("data")
+    except:
+        pass
+    
+    with open('data/data.md', 'w+') as f:
+        f.write("# All data stays here")
+        
+    # remove database
+    with open('db.json', 'w+') as d:
+        d.write("[]")
     
     return redirect(url_for('index'))
 
@@ -47,37 +64,48 @@ def settings():
 
 @app.route('/reg_video_feed', methods=["POST"])
 def reg_video_feed():
-    name = f"{request.form['first_name']} {request.form['last_name']}"
-    print(name)
-    gen_registration_frames(name)
-    cv2.destroyAllWindows()
-    return {}
+    try:
+        name = f"{request.form['first_name']} {request.form['last_name']}"
+        print(name)
+        gen_registration_frames(name)
+        cv2.destroyAllWindows()
+        return redirect(url_for('index'))
+    except:
+        cv2.destroyAllWindows()
+        return redirect(url_for('index'))
+
 
 
 @app.route('/det_video_feed')
 def det_video_feed():
-    from settings import settings
-    face, p = gen_detection_frames()
     
-    if p != None:
-        p = int([*p.values()][0])
+    try:
+        from settings import settings
+        face, p = gen_detection_frames()
         
-    if face is None:
         if p != None:
-            if  p < 30:
-                msg = "Intruder at the door."
-                num = settings.PHONE_NUMBERS
-                send_sms(num, msg)
-                return {"message":"no face detected"}
+            p = int([*p.values()][0])
             
-        msg = "Intruder at the door."
-        num = settings.PHONE_NUMBERS
-        send_sms(num, msg)
-        return {"message":"no face detected"}
-    
-    print(face, p)
-    cv2.destroyAllWindows()
-    
-    return {"message":face}
+        if face is None:
+            if p != None:
+                if  p < 30:
+                    msg = "Intruder at the door."
+                    num = settings.PHONE_NUMBERS
+                    send_sms(num, msg)
+                    return {"message":"no face detected"}
+                
+            msg = "Intruder at the door."
+            num = settings.PHONE_NUMBERS
+            send_sms(num, msg)
+            return {"message":"no face detected"}
+        
+        print(face, p)
+        cv2.destroyAllWindows()
+        return redirect(url_for('index'))
+    except:
+        cv2.destroyAllWindows()
+        return redirect(url_for('index'))
+        
+
 
 

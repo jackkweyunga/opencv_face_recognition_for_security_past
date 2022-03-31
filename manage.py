@@ -25,9 +25,8 @@ if args.test_sms:
     from settings import settings
     receivers = settings.PHONE_NUMBERS
     
-    for r in receivers:
-        status = send_sms(to=r, msg='I am just testing this number. Dont freak out.')
-        print(status)
+    status = send_sms(to=receivers, msg='I am just testing this number. Dont freak out.')
+    print(status)
 
 
 if args.gui:

@@ -8,7 +8,7 @@ from settings import settings
 client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
 
-def send_sms(to: str, msg: str):
+def send_sms(to, msg: str):
     
     try:
         for t in to.split(","):
