@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 
 def imgsandlables(path, detector):
-    imagePaths = [os.path.join(path, i) for i in os.listdir(path)]
+    imagePaths = [os.path.join(path, i) for i in os.listdir(path) if not i.endswith(".md")]
     
     indfaces = []
     ids = []

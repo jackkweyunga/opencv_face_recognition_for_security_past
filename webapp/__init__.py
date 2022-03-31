@@ -1,4 +1,5 @@
 
+from time import time
 from flask import Flask, render_template, Response, request, redirect, url_for
 from webapp.gen_frames import gen_registration_frames, gen_detection_frames
 from webapp.memberslist import get_members
@@ -54,7 +55,6 @@ def clear_data():
 @app.route('/settings', methods=["POST"])
 def settings():
     from settings import Settings
-    
     settings = Settings(**request.form)
     settings.save()
     members = get_members()
@@ -64,31 +64,63 @@ def settings():
 
 @app.route('/reg_video_feed', methods=["POST"])
 def reg_video_feed():
+    from settings import settings
+    
+    context = {
+            "members" : get_members(),
+            "settings": settings,
+            "messages": [{
+                "level":"info",
+                "message": "Face Detection Program"
+            }]
+        }
+    
     try:
         name = f"{request.form['first_name']} {request.form['last_name']}"
         print(name)
         gen_registration_frames(name)
         cv2.destroyAllWindows()
-        return redirect(url_for('index'))
+        # time.sleep(2)
+        context["members"] = get_members()
+        context["messages"] = [{
+            "level":"info",
+            "message":f"User {name} registered successfully"
+        }]
+        
+        return render_template('index.html', **context)
     except:
         cv2.destroyAllWindows()
-        return redirect(url_for('index'))
+    
+        context["messages"] = [{
+            "level":"error",
+            "message":f"User {name} registration failed"
+        }]
+        
+        return render_template('index.html', **context)
 
 
 
 @app.route('/det_video_feed')
 def det_video_feed():
     
+    from settings import settings
+    
+    context = {
+            "members" : get_members(),
+            "settings": settings,
+            "messages": [{
+                "level":"info",
+                "message": "Face Detection Program"
+            }]
+        }
+    
     try:
         from settings import settings
         face, p = gen_detection_frames()
         
-        if p != None:
-            p = int([*p.values()][0])
-            
         if face is None:
             if p != None:
-                if  p < 30:
+                if  p < 50:
                     msg = "Intruder at the door."
                     num = settings.PHONE_NUMBERS
                     send_sms(num, msg)
@@ -97,15 +129,30 @@ def det_video_feed():
             msg = "Intruder at the door."
             num = settings.PHONE_NUMBERS
             send_sms(num, msg)
-            return {"message":"no face detected"}
+            context["messages"] = [{
+                "level":"error",
+                "message":f"Intruder Detected !!!"
+            }]
+            
+            return render_template('index.html', **context)
         
         print(face, p)
         cv2.destroyAllWindows()
-        return redirect(url_for('index'))
-    except:
-        cv2.destroyAllWindows()
-        return redirect(url_for('index'))
+        context["messages"] = [{
+            "level":"info",
+            "message":f"welcome in {face}"
+        }]
         
-
-
-
+        return render_template('index.html', **context)
+    
+    except:
+        
+        cv2.destroyAllWindows()
+    
+        context["messages"] = [{
+            "level":"error",
+            "message":"Some error occured. Detection failed!!!"
+        }]
+        
+        return render_template('index.html', **context)
+        
