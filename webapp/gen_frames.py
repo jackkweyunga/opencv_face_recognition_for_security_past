@@ -7,7 +7,6 @@ import time
 from fsdb.fsdb import Data, get_by_name
 import numpy as np
 from faceapp.imagelables import imgsandlables
-from settings import settings
 
 
 path = 'data'
@@ -25,8 +24,8 @@ def train():
 
 
 def gen_registration_frames(name: str):  
-    
-    cam= cv2.VideoCapture(settings.CAM_PORT, cv2.CAP_DSHOW)
+    from settings import settings
+    cam= cv2.VideoCapture(int(settings.CAM_PORT), cv2.CAP_DSHOW)
     
     WindowName="Face app"
     view_window = cv2.namedWindow(WindowName,cv2.WINDOW_FULLSCREEN)
@@ -59,7 +58,7 @@ def gen_registration_frames(name: str):
         k = cv2.waitKey(100) &  0xFF == ord('s')
         if k == 10:
             break
-        elif count >= 50:
+        elif count >= int(settings.NUMBER_OF_RECORDS):
             print("Started training data")
             if id != None:
                 train()
@@ -69,6 +68,7 @@ def gen_registration_frames(name: str):
             
             
 def gen_detection_frames():  
+    from settings import settings
     
     WindowName="Face app"
     view_window = cv2.namedWindow(WindowName,cv2.WINDOW_FULLSCREEN)
@@ -78,7 +78,7 @@ def gen_detection_frames():
     # load classifier
     recognizer.read('recognizer.yml')
     
-    cam= cv2.VideoCapture(settings.CAM_PORT, cv2.CAP_DSHOW)
+    cam= cv2.VideoCapture(int(settings.CAM_PORT), cv2.CAP_DSHOW)
     
     possible_faces = []
     
@@ -101,7 +101,7 @@ def gen_detection_frames():
             # Check if confidence is less them 100 ==> "0" is perfect match
             if (confidence >= 50):
                 
-                if len(possible_faces) < settings.NUMBER_OF_RECORDS:
+                if len(possible_faces) < int(settings.NUMBER_OF_RECORDS):
                     possible_faces.append(id)
                 
                 else:

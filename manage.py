@@ -22,8 +22,8 @@ args = parser.parse_args()
 
 
 if args.test_sms:
-    
-    receivers = ['+255712111936','+255755554741']
+    from settings import settings
+    receivers = settings.PHONE_NUMBERS
     
     for r in receivers:
         status = send_sms(to=r, msg='I am just testing this number. Dont freak out.')

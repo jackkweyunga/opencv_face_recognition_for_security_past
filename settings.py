@@ -23,8 +23,10 @@ class Settings:
         DOORLOCK_PORT = "COM15",
         TWILIO_ACCOUNT_SID = "AC7580b24a06fffa8ca4d762c5c9053901",
         TWILIO_AUTH_TOKEN = "86dd6314aa511821ebaf83227dcad537",
-        PHONE_NUMBERS = "+255712111936"
+        PHONE_NUMBERS = "+255712111936",
+        TITLE = "TITLE"
         ):
+        self.TITLE = TITLE
         self.CAM_PORT = CAM_PORT
         self.NUMBER_OF_RECORDS = NUMBER_OF_RECORDS
         self.DOORLOCK_PORT = DOORLOCK_PORT

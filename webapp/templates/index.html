@@ -64,7 +64,7 @@
 <div class="container wrapper w-100 d-flex justify-content-center align-items-center">
     <div class="w-100">
         <div class="row">
-            <h1>FACE RECOGNITION SECURITY SYSTEM</h1>
+            <h1>{{ settings.TITLE }}</h1>
         </div>
         <div class="row mb-3">
             <div class="col d-flex gap-3 justify-content-center">
@@ -104,19 +104,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form action="/reg_video_feed" method="post">
+
                 <div class="row">
                     <div class="col">
-                        <form action="" method="post">
-                            <input type="text" placeholder="firstname" class="mb-3 form-control">
-                            <input type="text" placeholder="lastname" class="mb-3 form-control">
-                        </form>
+                            <input required type="text" placeholder="first_name" name="first_name" class="mb-3 form-control">
+                            <input required type="text" placeholder="last_name" name="last_name" class="mb-3 form-control">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col img-frame" id="r_vid">
-                        <a class="btn btn-sm w-100" href="{{ url_for('reg_video_feed') }}">START FACE REGISTRATION</a>
+                        <button type="submit" class="btn btn-sm w-100">START FACE REGISTRATION</a>
                     </div>
                 </div>
+            </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-future" data-bs-dismiss="modal">CANCEL</button>
@@ -205,7 +207,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <form action="/" method="post" >
+                        <form action="/settings" method="post">
+                            TITLE: <input class="form-control" type="text" name="TITLE" value="{{settings.TITLE}}" id=""> <br>
                             CAM_PORT: <input class="form-control" type="text" name="CAM_PORT" value="{{settings.CAM_PORT}}" id=""> <br>
                             NUMBER_OF_RECORDS: <input class="form-control" type="text" name="NUMBER_OF_RECORDS" value="{{settings.NUMBER_OF_RECORDS}}" id=""> <br>
                             DOORLOCK_PORT: <input class="form-control" type="text" name="DOORLOCK_PORT" value="{{settings.DOORLOCK_PORT}}" id=""> <br>
