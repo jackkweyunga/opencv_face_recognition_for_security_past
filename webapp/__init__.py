@@ -5,7 +5,6 @@ from webapp.memberslist import get_members
 import os
 from faceapp.datagathering import register
 from faceapp.sms import send_sms
-from settings import settings
 
 
 app = Flask(__name__)
@@ -16,8 +15,10 @@ app.config['DEBUG'] = True
 def index():
     
     members = get_members()
+    from settings import settings
+    print(settings)
     
-    return render_template('index.html', members = members)
+    return render_template('index.html', members = members, settings = settings)
 
 
 @app.route('/reg_video_feed')
@@ -52,9 +53,4 @@ def det_video_feed():
     
     return {"message":face}
 
-
-@app.route('/settings', methods=['POST'])
-def settings():
-    
-    return {"settings":setting}
 
