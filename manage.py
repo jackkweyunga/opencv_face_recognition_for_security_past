@@ -16,6 +16,7 @@ parser.add_argument('-r', "--register", action="store_true", help='register a ne
 parser.add_argument('-d', "--detect", action="store_true", help='detect a face')
 parser.add_argument('-g', "--gui", action="store_true", help='start gui')
 parser.add_argument('-t', "--test_sms", action="store_true", help='test sms service')
+parser.add_argument('-k', "--tkinter", action="store_true", help='open tkinter app')
 
 
 args = parser.parse_args()
@@ -38,23 +39,23 @@ if args.gui:
 if args.register:
     # registration logic
     print("Registration for a new face")
-    speak("Registration for a new face")
+    # speak("Registration for a new face")
     
     name = input("Enter a name: ")
     register(name)
     
     print("registration is done")
-    speak("registration is done")
+    # speak("registration is done")
 
 elif args.detect:
     # detection logic
     print("Starting face recognition")
-    speak("Starting face recognition")
+    # speak("Starting face recognition")
     
     name = recognize()
     open_door("1")
     
     print(f"Welcome in {name}")
-    speak(f"Welcome in {name}")
+    # speak(f"Welcome in {name}")
 
 

@@ -22,6 +22,11 @@
         border-bottom-left-radius: 30px;
     }
 
+    a {
+        text-decoration: none;
+        padding: 10px;
+    }
+
     .bg-future {
         background-color: #3A86B7;
         color: #FFFFFF;
@@ -91,6 +96,11 @@
                 </div>
             </div>
         </div>
+
+        <div class=" d-flex justify-content-center w-100">
+            <p class="text-center py-3 mt-4"><a class="d-flex w-100 text-center" href="/logout">Logout</a></p>
+        </div>
+
     </div>
 </div>
 
@@ -223,6 +233,8 @@
                             TWILIO_ACCOUNT_SID: <input class="form-control" type="text" name="TWILIO_ACCOUNT_SID" value="{{settings.TWILIO_ACCOUNT_SID}}" id=""> <br>
                             TWILIO_AUTH_TOKEN: <input class="form-control" type="text" name="TWILIO_AUTH_TOKEN" value="{{settings.TWILIO_AUTH_TOKEN}}" id=""> <br>
                             PHONE_NUMBERS: <input class="form-control" type="text" name="PHONE_NUMBERS" value="{{settings.PHONE_NUMBERS}}" id=""> <br>
+                            ADMIN_USERNAME: <input class="form-control" type="text" name="ADMIN_USERNAME" value="{{settings.ADMIN_USERNAME}}" id=""> <br>
+                            ADMIN_PASSWORD: <input class="form-control" type="password" name="ADMIN_PASSWORD" value="{{settings.ADMIN_PASSWORD}}" id=""> <br>
                             <hr>
                             <button type="submit" class="btn bg-future">SAVE</button>
                         </form>

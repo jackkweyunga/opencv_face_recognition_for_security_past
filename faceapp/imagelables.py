@@ -19,3 +19,5 @@ def imgsandlables(path, detector):
             indfaces.append(imgnp[y:y + h, x:x + w])
             ids.append(id)
     return indfaces, ids
+
+

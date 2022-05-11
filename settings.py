@@ -24,7 +24,9 @@ class Settings:
         TWILIO_ACCOUNT_SID = "AC7580b24a06fffa8ca4d762c5c9053901",
         TWILIO_AUTH_TOKEN = "86dd6314aa511821ebaf83227dcad537",
         PHONE_NUMBERS = "+255712111936",
-        TITLE = "TITLE"
+        TITLE = "TITLE",
+        ADMIN_PASSWORD = "password",
+        ADMIN_USERNAME = "admin"
         ):
         self.TITLE = TITLE
         self.CAM_PORT = CAM_PORT
@@ -33,6 +35,8 @@ class Settings:
         self.TWILIO_ACCOUNT_SID = TWILIO_ACCOUNT_SID
         self.TWILIO_AUTH_TOKEN = TWILIO_AUTH_TOKEN
         self.PHONE_NUMBERS = PHONE_NUMBERS
+        self.ADMIN_PASSWORD = ADMIN_PASSWORD
+        self.ADMIN_USERNAME = ADMIN_USERNAME
         
     def save(self):        
         with open("settings.json", "w") as s:
