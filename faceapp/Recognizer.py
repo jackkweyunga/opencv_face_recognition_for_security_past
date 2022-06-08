@@ -29,7 +29,7 @@ def recognize(n_frames = 100) -> str:
     recognizer.read('recognizer.yml')
     
     # cam= cv2.VideoCapture(int(settings.CAM_PORT), cv2.CAP_DSHOW)
-    cam = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+    cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     
     possible_faces = []
     track_frames = 0
@@ -139,13 +139,10 @@ def recognize(n_frames = 100) -> str:
             if (cv2.waitKey(10) & 0xFF == ord('Q')) or track_frames > n_frames :
                 break
                 
-        else:
-            winsound.Beep(900, 500)
-            confidence = "  {0}%".format(round(100 - confidence))
-            
-        cv2.imshow('camera', img)
-        
-
+            # else:
+            #     winsound.Beep(900, 500)
+            #     confidence = "  {0}%".format(round(100 - confidence))
+            # cv2.imshow('camera', img)
               
     cam.release()
     cv2.destroyAllWindows() 

@@ -1,6 +1,4 @@
 
-
-
 # imports
 # 
 import mediapipe as mp
